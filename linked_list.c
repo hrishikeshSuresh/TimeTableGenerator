@@ -34,43 +34,32 @@ int main()
 {
 	int choice=1;
 	List* list = create_list();
-<<<<<<< HEAD
 	char *name;
 	char line[30];
-=======
->>>>>>> cf54bb7808463917d749dbe3c1b36f8562c5b6dd
 	FILE *fp = fopen("teachers_data.csv","r+");
 	while(choice > 0 && choice < 4)
 	{
 		printf("1. Auto enter the details of teachers \n");
 		printf("2. Delete a record of teacher\n");
 		printf("3. Display the list \n");
-	  scanf("%d",&choice);
+	        scanf("%d",&choice);
 		switch(choice)
 		{
-   			case 1 : while(fgets(line,sizeof(line),fp)!=NULL)
-								 {
-									  char *subject;
-									 	name=strtok(line,",");
-										subject=strtok(NULL,",");
-<<<<<<< HEAD
-										puts(name);
-										puts(subject);
-=======
-			             /*
-										for(int i=0;i<strlen(namek);i++)  //namek not defined 
-											strcpy(name[i],namek[i]);  
-										for(int i=0;i<strlen(namek);i++) // subjectk not defined
-											strcpy(subject[i],subjectk[i]);
-										*/
->>>>>>> cf54bb7808463917d749dbe3c1b36f8562c5b6dd
-            		 		insert_beginning(list,name);
-            		 }
-								 break;
+   			case 1 :   while(fgets(line,sizeof(line),fp)!=NULL
+				       {
+						char *subject;
+	    				 	name=strtok(line,",");
+					        subject=strtok(NULL,",");
+						puts(name);
+   						puts(subject);
+	 	    		 		insert_beginning(list,name);
+            		               }
+			           fclose(fp);
+	           		   break;
 			  case 2 : printf("Enter the name of the teacher to be removed from the list\n");
-				         scanf("%s",&name);
-				         delete_element(list, name);
-				         break;
+				   scanf("%s",&name);
+		                   delete_element(list, name);
+			           break;
 		   	case 3 : disp_list(list);
             		 break;
 		}
