@@ -1,7 +1,7 @@
 //Linked list to read all the teacher_name from the teacher_name file
 #include<stdio.h>
 #include<stdlib.h>
-#include <string.h>
+#include<string.h>
 
 typedef struct Node {
 	char teacher_name[30],subject;
@@ -31,10 +31,11 @@ void delete_list(List* list);
 
 int main()
 {
-	int choice = 1;
-	char *name,*subject;
+	int choice=1;
 	List* list = create_list();
-	FILE *fp = fopen("teachers_data.csv","rw");
+	char *name;
+	char line[30];
+	FILE *fp = fopen("teachers_data.csv","r+");
 	while(choice > 0 && choice < 4)
 	{
 		printf("1. Auto enter the details of teachers \n");
@@ -43,33 +44,29 @@ int main()
 	  scanf("%d",&choice);
 		switch(choice)
 		{
-   			case 1 : if(fp!=NULL && fgets(name,sizeof(name),fp)!=NULL)
+   			case 1 : while(fgets(line,sizeof(line),fp)!=NULL)
 								 {
-									  char line[30];
+									  char *subject;
 									 	name=strtok(line,",");
 										subject=strtok(NULL,",");
-			             /*
-										for(int i=0;i<strlen(namek);i++)
-											name[i]=namek[i];
-										for(int i=0;i<strlen(namek);i++)
-											subject[i]=subjectk[i];
-										*/
+										puts(name);
+										puts(subject);
             		 		insert_beginning(list,name);
             		 }
-								 fclose(fp);
 								 break;
 			  case 2 : printf("Enter the name of the teacher to be removed from the list\n");
-				         scanf("%s", &name);
+				         scanf("%s",&name);
 				         delete_element(list, name);
 				         break;
 		   	case 3 : disp_list(list);
             		 break;
 		}
+		fclose(fp);
 	}
 }
 List* create_list()
 {
-    List* list=(List*)malloc(sizeof(List));
+    List *list=(List*)malloc(sizeof(List));
     list->head=NULL;
     list->no_of_teachers=0;
     return list;
@@ -77,7 +74,8 @@ List* create_list()
 void insert_beginning(List* list,char teacher_name[])
 {
     Node* nd=(Node*)malloc(sizeof(Node));
-    for(int i=0;i<strlen(teacher_name);i++)
+		int i = 0;
+    for(i=0;i<strlen(teacher_name);i++)
 			nd->teacher_name[i]=teacher_name[i];
     nd->link=list->head;
     list->head=nd;
@@ -108,10 +106,9 @@ void delete_element(List* list,char teacher_name[])
 void disp_list(List* list)
 {
     Node* nd=list->head;
-    int x=0;
     while(nd!=NULL)
     {
-        printf("%s",nd->teacher_name);
+        printf("%s \n",nd->teacher_name);
         nd=nd->link;
 	  }
 }
