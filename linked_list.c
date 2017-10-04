@@ -4,7 +4,8 @@
 #include <string.h>
 
 typedef struct Node {
-	char teacher_name[30],subject;
+	char teacher_name[30];
+	char subject;
 	struct Node *link;
 } Node;
 
@@ -34,7 +35,7 @@ int main()
 	int choice = 1;
 	char *name,*subject;
 	List* list = create_list();
-	FILE *fp = fopen("teachers_data.csv","rw");
+	FILE *fp = fopen("teachers_data.csv","r+");
 	while(choice > 0 && choice < 4)
 	{
 		printf("1. Auto enter the details of teachers \n");
@@ -49,10 +50,10 @@ int main()
 									 	name=strtok(line,",");
 										subject=strtok(NULL,",");
 			             /*
-										for(int i=0;i<strlen(namek);i++)
-											name[i]=namek[i];
-										for(int i=0;i<strlen(namek);i++)
-											subject[i]=subjectk[i];
+										for(int i=0;i<strlen(namek);i++)  //namek not defined 
+											strcpy(name[i],namek[i]);  
+										for(int i=0;i<strlen(namek);i++) // subjectk not defined
+											strcpy(subject[i],subjectk[i]);
 										*/
             		 		insert_beginning(list,name);
             		 }
