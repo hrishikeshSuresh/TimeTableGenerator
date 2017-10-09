@@ -27,7 +27,7 @@ void delete_element(List* list, char teacher_name[]);
 //Display the elements of the linked list seperated by spaces in a single line
 void disp_list(List* list);
 
-//Delete the linked list along with any nodes it has.
+//Delete the linked list along with any qes it has.
 void delete_list(List* list);
 
 int main()
@@ -42,29 +42,28 @@ int main()
 		printf("1. Auto enter the details of teachers \n");
 		printf("2. Delete a record of teacher\n");
 		printf("3. Display the list \n");
-	        scanf("%d",&choice);
+	  scanf("%d",&choice);
 		switch(choice)
 		{
-   			case 1 :   while(fgets(line,sizeof(line),fp)!=NULL
-				       {
-						char *subject;
-	    				 	name=strtok(line,",");
-					        subject=strtok(NULL,",");
-						puts(name);
-   						puts(subject);
-	 	    		 		insert_beginning(list,name);
-            		               }
-			           fclose(fp);
-	           		   break;
-			  case 2 : printf("Enter the name of the teacher to be removed from the list\n");
-				   scanf("%s",&name);
-		                   delete_element(list, name);
-			           break;
-		   	case 3 : disp_list(list);
-            		 break;
-		}
+   			case 1 : while(fgets(line,sizeof(line),fp)!=NULL)
+								 {
+									  char *subject;
+									 	name=strtok(line,",");
+										subject=strtok(NULL,",");
+										puts(name);
+										puts(subject);
+										insert_beginning(list,name);
+								 }
+								 break;
+				case 2 : printf("Enter the name of the teacher to be removed from the list\n");
+				         scanf("%s",&name);
+				         delete_element(list, name);
+				         break;
+				case 3 : disp_list(list);
+				     		 break;
+		  }
 		fclose(fp);
-	}
+		}
 }
 List* create_list()
 {
@@ -75,53 +74,52 @@ List* create_list()
 }
 void insert_beginning(List* list,char teacher_name[])
 {
-    Node* nd=(Node*)malloc(sizeof(Node));
+    Node* p=(Node*)malloc(sizeof(Node));
 		int i = 0;
+		printf("\n**check**\n");
     for(i=0;i<strlen(teacher_name);i++)
-			nd->teacher_name[i]=teacher_name[i];
-    nd->link=list->head;
-    list->head=nd;
+			p->teacher_name[i]=teacher_name[i];
+    p->link=list->head;
+    list->head=p;
     list->no_of_teachers+=1;
 }
-void delete_element(List* list,char teacher_name[])
+void delete_element(List *list,char teacher_name[])
 {
-    Node* nd=list->head;
-    Node* nod=NULL;
-    while((nd!=NULL)&&(strcmp(nd->teacher_name,teacher_name)!=0))
+  Node *p,*temp;
+  if(list->head==NULL)
+  {
+    printf("No elements present in the linked list.\n");
+  }
+  else
+  {
+    p=list->head;
+    while(p->link!=NULL)
     {
-        nod=nd;
-        nd=nd->link;
-    }
-    if((nod!=NULL)&&(nd!=NULL))
-    {
-        nod->link=nd->link;
-        free(nd);
-        list->no_of_teachers-=1;
-    }
-    else if((nod==NULL)&&(nd!=NULL))
-    {
-        list->head=nd->link;
-        free(nd);
-        list->no_of_teachers-=1;
-    }
+      if(strcmp(p->teacher_name,teacher_name)==0)
+      {
+        p->link=NULL;
+        break;
+      }
+   }
+}
 }
 void disp_list(List* list)
 {
-    Node* nd=list->head;
-    while(nd!=NULL)
+    Node* p=list->head;
+    while(p!=NULL)
     {
-        printf("%s \n",nd->teacher_name);
-        nd=nd->link;
+        printf("%s \n",p->teacher_name);
+        p=p->link;
 	  }
 }
 void delete_list(List* list)
 {
-    Node* nd=list->head;
-    Node* nod=NULL;
-    while(nd!=NULL)
+    Node* p=list->head;
+    Node* q=NULL;
+    while(p!=NULL)
     {
-        nod=nd;
-        nd=nd->link;
-        free(nod);
+        q=p;
+        p=p->link;
+        free(q);
     }
 }
