@@ -21,54 +21,59 @@ document.write(ll.head);  //Object value: 235
 document.write(ll.head.next); //Object value: 245
 document.write(ll.head.next.next); //object value: 123
 }*/
-function Node(value, next) {
+function Node(value, next)
+{
   this.value = value;
-  this.next = next || null;
+  this.next = next;
 }
 
 // TODO - Only expose this to global
-function LinkedList() {
+function LinkedList()
+{
   this.first = null;
   this.last = null;
   this.size = 0;
 }
 
-LinkedList.prototype.iterate = function(callback) {
+LinkedList.print = function()
+{
   var current = this.first;
-
-  while (current !== null) {
-    callback.call(this, current);
+  while (current !== null)
+  {
+    document.write(current);
     current = current.next;
   }
 }
 
 
-LinkedList.prototype.append = function(value) {
-
-    var node = new Node(value);
-
-    if (this.size === 0) {
-        this.first = node;
-    } else {
-        this.last.next = node;
-    }
-
-    // node.next = null;
+LinkedList.append = function(value)
+{
+  var node = new Node(value);
+  if (this.size === 0)
+  {
+    this.first = node;
+  }
+  else
+  {
+    this.last.next = node;
+  }
     this.last = node;
     this.size++;
     return this;
 }
 
-function Iterator(list) {
+function Iterator(list)
+{
   this.list = list;
   this.index = list.first;
 }
 
-Iterator.prototype.hasNext = function() {
+Iterator.hasNext = function()
+{
   return this.index !== null && this.index.next !== null;
 }
 
-Iterator.prototype.next = function() {
+Iterator.next = function() {
   var nextNode = this.index;
   while(nextNode.next!=undefined)
   {
