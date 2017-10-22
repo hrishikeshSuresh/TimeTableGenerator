@@ -1,7 +1,7 @@
-function Node(data,next)
+function Node(data)
 {
   this.data = data;
-  this.next = next;
+  this.next = null;
 }
 
 function LinkedList()
@@ -10,23 +10,39 @@ function LinkedList()
   this.size = null;
 }
 
-LinkedList.push = function(data)
+LinkedList.prototype.push = function(data)
 {
-  new_node = new Node(data);
-  if(this.size == 0)
+  var current = this.head;
+  var new_node = new Node(data);
+  if(!current)
   {
     this.head = new_node;
+    this.size++;
+    return new_node;
   }
+  while(current.next!=null)
+  {
+    current = current.next;
+  }
+  current.next = new_node;
   this.size++;
   return this;
 }
 
-LinkedList.print = function()
+LinkedList.prototype.print = function()
 {
-  document.write=Array.toString(list.toArray());
+  //document.write=Array.toString(list.toArray());
+  var current = this.head;
+  document.write("<ul>")
+  while(current!=null)
+  {
+    document.write("<li>",current.data);
+    current = current.next;
+  }
 }
 
 var list = new LinkedList();
-list.push('first');
-list.push('second');
-list.push('third');
+list.push(1);
+list.push(2);
+list.push(3);
+list.print();
