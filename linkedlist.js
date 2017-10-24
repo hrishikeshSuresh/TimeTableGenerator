@@ -37,7 +37,26 @@ LinkedList.prototype.print = function()
   while(current!=null)
   {
     document.write("<li>",current.data);
+    document.write("</li>");
     current = current.next;
+  }
+  document.write("</ul>");
+}
+
+LinkedList.prototype.deleteWithName =  function(name)
+{
+  var p = this.head;
+  var q;
+  while(p!=null)
+  {
+    if(p.data == name)
+    {
+      q = p.next;
+      this.head = q;
+      return this;
+    }
+    q = p;
+    p = p.next;
   }
 }
 
@@ -45,4 +64,6 @@ var list = new LinkedList();
 list.push(1);
 list.push(2);
 list.push(3);
+list.print();
+list.deleteWithName(1);
 list.print();
