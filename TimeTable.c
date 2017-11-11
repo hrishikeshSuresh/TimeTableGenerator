@@ -15,8 +15,7 @@ struct course
 		int breaks;
 	};
 	struct course co[20];
- 
-/***********************************************/
+
 struct teach
 	{
 		char name[20];
@@ -32,11 +31,10 @@ struct teach
 		}
 		busy[10];
 	}
-	busy[10]; 
-		
+	busy[10];
+
 	};
 	struct teach th[20];
-/***********************************************/	
 struct room
 	{
 		char room[10];
@@ -49,7 +47,7 @@ struct room
 		}
 		busy[10];
 	}
-	busy[10]; 
+	busy[10];
 	struct
 	{
 		struct
@@ -58,11 +56,10 @@ struct room
 		}
 		lunch[10];
 	}
-	lunch[2]; 	 
-		
+	lunch[2];
+
 	};struct room ro[20];
-/***********************************************/
- 
+
 struct tmpsub
 	{
 	struct
@@ -76,7 +73,7 @@ struct tmpsub
 	tmpsub[20];
 	}
 	tmpsub[20];
-/***********************************************/
+
 struct tmptchr
 	{
 	struct
@@ -90,7 +87,7 @@ struct tmptchr
 	tmptchr[20];
 	}
 	tmptchr[20];
-/***********************************************/
+
 struct fisub
 	{
 	struct
@@ -104,7 +101,7 @@ struct fisub
 	fisub[20];
 	}
 	fisub[20];
-/***********************************************/
+
 struct fitch
 	{
 	struct
@@ -118,12 +115,11 @@ struct fitch
 	fitch[20];
 	}
 	fitch[20];
- 
-/***********************************************/	
+
 long int crs,tch,room,dys,lects,tmptch,tmproom,set,settmp,done;
-/***********************************************/	
-void input()              
-{	
+
+void input()
+{
 	int i,j,k;
 	printf("enter total days,lectures,cources,teachers,rooms");
 	scanf("%d %d %d %d %d",&dys,&lects,&crs,&tch,&room);
@@ -144,37 +140,37 @@ void input()
 	{
 		printf("enter course name ");
 		scanf("%s",co[i].name);
-		
+
 		printf("enter total subjects ");//less than m x n
 		scanf("%d",&co[i].totsub);
-		
+
 		for(j=0;j<co[i].totsub;j++)
 		{
 			printf("enter subject name ");
 			scanf("%s",co[i].subject[j]);
-			
+
 			printf("enter subject creadit ");
 			scanf("%d",&co[i].creadit[j]);
-			
+
 			co[i].allsub+=co[i].creadit[j];//less than m x m
-			
+
 			printf("select a teacher for subject %d",j);
 			for(k=0;k<tch;k++)
 			printf(" %d.%s\t",k,th[k].name);
 			scanf("%d",&tmptch);
-			
+
 			co[i].ctchr[j]=tmptch;
 			th[tmptch].sub[th[tmptch].totsub]=j; //not used yet
 			th[tmptch].cors[th[tmptch].totsub]=i;//not used yet
 			th[tmptch].totsub++;	//	less than m x n
-		
+
 			th[tmptch].allsub+=co[i].creadit[j];
 			if(th[tmptch].allsub>lects*dys-dys)//check total sub limit for a teacher
 			{
 				printf("more than limited sub to a teacher");
 				exit(0);
 			}
-			
+
 		}
 		printf("enter a room for this course\n");
 		for(j=0;j<room;j++)
@@ -182,20 +178,19 @@ void input()
 			printf(" room %d %s",j,ro[j].room);
 		}
 		scanf("%d",&tmproom);
-		co[i].room=tmproom;	
+		co[i].room=tmproom;
 		ro[tmproom].allsub+=co[i].allsub;
 		if(ro[tmproom].allsub>lects*dys-dys)//check total room sub limit
 		{
 			printf("more than limited sub in a room");
 			exit(0);
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 }
-/************************/
 void save(int x)
 {
 	int i,j,k;
@@ -221,7 +216,7 @@ void generate(int i,int j,int k)
 			else
 			ro[co[i].room].lunch[1].lunch[k].lunch=true;
 			co[i].breaks++;
-			
+
 			generate(i+(j+(k+1)/dys)/lects,(j+(k+1)/dys)%lects,(k+1)%dys);
 			if(!done)
 			{
@@ -230,8 +225,8 @@ void generate(int i,int j,int k)
 			else
 			ro[co[i].room].lunch[1].lunch[k].lunch=false;
 			co[i].breaks--;}
-			
-			
+
+
 		}
 		for(x=0;x<co[i].totsub;x++)
 		{
@@ -239,74 +234,73 @@ void generate(int i,int j,int k)
 			{
 				strcpy(tmptchr[i].tmptchr[j].tmptchr[k].tmptchr,th[co[i].ctchr[x]].name);
 				strcpy(tmpsub[i].tmpsub[j].tmpsub[k].tmpsub,co[i].subject[x]);
-			 
+
 				co[i].creadit[x]--;
-				
+
 				th[co[i].ctchr[x]].busy[j].busy[k].busy=true;
 				ro[co[i].room].busy[j].busy[k].busy=true;
-				
+
 				if(j==(lects-1) && k==(dys-1))
 					set++;
-				
+
 				if(settmp<set)
 				{
 					settmp=set;
-					save(i); 
+					save(i);
 				}
 				generate(i+(j+(k+1)/dys)/lects,(j+(k+1)/dys)%lects,(k+1)%dys);
-			
+
 				if(!done)
 				{
 				if(j==(lects-1) && k==(dys-1))				//backtrack start
-					set--;	
-				
+					set--;
+
 				co[i].creadit[x]++;
-				
+
 				th[co[i].ctchr[x]].busy[j].busy[k].busy=false;
 				ro[co[i].room].busy[j].busy[k].busy=false;
-				
+
 				tmptchr[i].tmptchr[j].tmptchr[k].tmptchr[0]='\0';
 				tmpsub[i].tmpsub[j].tmpsub[k].tmpsub[0]='\0';
 				}
-				
+
 			}
 		}
-		
+
 		//breaks************
 		if(co[i].allsub<((lects*dys)-(co[i].breaks)))
 		{
- 
+
 			co[i].breaks++;
 				strcpy(tmptchr[i].tmptchr[j].tmptchr[k].tmptchr,"Nill");
 				strcpy(tmpsub[i].tmpsub[j].tmpsub[k].tmpsub,"brk");
-			 
+
 			if(j==(lects-1) && k==(dys-1))
 				set++;
-				
+
 			if(settmp<set)
 			{
 				settmp=set;
 				save(i);
 				//print();
 			}
-			
+
 			generate(i+(j+(k+1)/dys)/lects,(j+(k+1)/dys)%lects,(k+1)%dys);
-			
+
 			if(!done)
 			{
 				if(j==(lects-1) && k==(dys-1))				//backtrack start
 				set--;
 				co[i].breaks--;
-			}	
+			}
 		}
 	}
 	else
 	{
 		done=1; printf("..............................done..........................\n");
- 
-		}	
-} 
-/***************************************/
+
+		}
+}
 void print()
 {
 	int i,j,k;
@@ -337,10 +331,10 @@ void print()
 	}
 }
 int main()
-{ 
+{
 	input();
 	generate(0,0,0);
 	print();
 	return 0;
-	
+
 }
