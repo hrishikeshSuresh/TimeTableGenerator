@@ -1,6 +1,8 @@
-function Node(data)
+function Node(data_name,subject,hours)
 {
-  this.data = data;
+  this.data = data_name;
+  this.subject = subject;
+  this.hours = hours;
   this.next = null;
 }
 
@@ -10,10 +12,10 @@ function LinkedList()
   this.size = null;
 }
 
-LinkedList.prototype.push = function(data)
+LinkedList.prototype.push = function(data_name,subject,hours)
 {
   var current = this.head;
-  var new_node = new Node(data);
+  var new_node = new Node(data_name,subject,hours);
   if(!current)
   {
     this.head = new_node;
@@ -29,14 +31,54 @@ LinkedList.prototype.push = function(data)
   return this;
 }
 
-LinkedList.prototype.print = function()
+LinkedList.prototype.lengthOfList = function()
+{
+  var current = this.head;
+  var l = 0;
+  while(current.next!=null)
+  {
+    l = l + 1;
+    current = current.next;
+  }
+  return l;
+}
+
+LinkedList.prototype.printName = function()
 {
   //document.write=Array.toString(list.toArray());
   var current = this.head;
   document.write("<ul>")
-  while(current!=null)
+  while(current.next!=null)
   {
     document.write("<li>",current.data);
+    document.write("</li>");
+    current = current.next;
+  }
+  document.write("</ul>");
+}
+
+LinkedList.prototype.printSubject = function()
+{
+  //document.write=Array.toString(list.toArray());
+  var current = this.head;
+  document.write("<ul>")
+  while(current.next!=null)
+  {
+    document.write("<li>",current.subject);
+    document.write("</li>");
+    current = current.next;
+  }
+  document.write("</ul>");
+}
+
+LinkedList.prototype.printHours = function()
+{
+  //document.write=Array.toString(list.toArray());
+  var current = this.head;
+  document.write("<ul>")
+  while(current.next!=null)
+  {
+    document.write("<li>",current.hours);
     document.write("</li>");
     current = current.next;
   }
@@ -59,32 +101,19 @@ LinkedList.prototype.deleteWithName =  function(name)
   }
 }
 
-var list = new LinkedList();
-document.write("Insert working!")
-list.push("Senor Pink");
-list.push("Monkey D. Luffy");
-list.push("Silvers Raleigh");
-list.push("Eustass Kidd");
-list.push("Jimbei");
-list.print();
-document.write("Delete works!")
-list.deleteWithName("Silvers Raleigh");
-list.print();
-/*import System.IO;
-
-$.ajax({ url: 'teachers_data.csv', dataType: 'text', }).done(timeTableGenerator);
-function timeTableGenerator(data)
+LinkedList.prototype.retrieveHead = function ()
 {
-  var file = "teachers_data_timetable.csv"
-  var allRows = data.split(/\r?\n|\r/);
-  for (var singleRow = 0; singleRow < allRows.length; singleRow++)
-  {
-    var rowCells = allRows[singleRow].split(',');
-    for ( var rowCellCount = 0;rowCellCount < rowCells.length; rowCells++)
-    {
-      list.push(rowCells);
-      list.print();
-      document.write = rowCells[rowCellCount];
-    }
-  }
-}*/
+    var current = this.head;
+    return current;
+}
+
+LinkedList.prototype.getName = function(current)
+{
+  document.write(current.data_name);
+}
+
+LinkedList.prototype.imp = function ()
+{
+  
+};
+var list = new LinkedList();
