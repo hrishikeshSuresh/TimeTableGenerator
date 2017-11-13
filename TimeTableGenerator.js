@@ -1,16 +1,11 @@
-$.ajax({ url: 'teachers_data.csv', dataType: 'text', }).done(timeTableGenerator);
-function timeTableGenerator(data)
+/*LinkedList.prototype.timeTableGen= function ()
 {
-  var allRows = data.split(/\r?\n|\r/);
-  for (var singleRow = 0; singleRow < allRows.length; singleRow++)
-  {
-    var rowCells = allRows[singleRow].split(',');
-    list.push(rowCells[0],rowCells[1],rowCells[2]);
-  }
+  document.write("Im pissed!");
+  var curr = this.head;
+  document.write(curr.data_name);
   for(var i=0;i<=5;i++)
   {
-    list.printName();
-    var current = this.head;
+    var current = self.head;
     document.write(current.data_name);
     for(var j=0;j<=5;j++)
     {
@@ -23,20 +18,23 @@ function timeTableGenerator(data)
         document.write(current.data_name);
         k++;
       }
-      document.write('skip works');
       if(current.hours == 0)
       {
         list.deleteWithName(current.data_name);
-        current = this.head;
+        current = self.head;
       }
       if(l==0)
         alert("Insufficient staff .... Need more staff members.")
       else
       {
-      //  fh.WriteLine(current.subject+'/'+ current.data_name + ',');
-        current.hours = current.hours - 1;
-        current = this.head;
+      //fh.WriteLine(current.subject+'/'+ current.data_name + ',');
+      current.hours = current.hours - 1;
+      current = self.head;
       }
     }
   }
 }
+list.readData();
+list.printName();
+list.timeTableGen();
+*/
