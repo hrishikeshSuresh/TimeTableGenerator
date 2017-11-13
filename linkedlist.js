@@ -180,6 +180,4 @@ LinkedList.prototype.Generate = function()
     list.push(rowCells[0],rowCells[1],rowCells[2]);
     }
     alert('Data retrieval is successful!');
-    list.printName();
   }
-list.printName();
