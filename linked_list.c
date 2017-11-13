@@ -2,10 +2,12 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include <math.h>
 
 typedef struct Node {
 	char teacher_name[30];
 	char subject;
+	int hours;
 	struct Node *link;
 } Node;
 
@@ -18,7 +20,7 @@ typedef struct List {
 List* create_list();
 
 //Insert a new Node at the beginning of the linked list
-void insert_beginning(List* list, char teacher_name[]);
+void insert_beginning(List* list, char teacher_name[],char subject[],int hours);
 
 //Delete the first Node having the element "teacher_name".
 //No operation if there is no such Node.
@@ -28,13 +30,16 @@ void delete_element(List* list, char teacher_name[]);
 void disp_list(List* list);
 
 //Delete the linked list along with any qes it has.
+
 List* delete_list(List* list);
+
+//Generate time table
 
 int main()
 {
 	int choice=1;
 	List* list = create_list();
-	char *name;
+	char *name,*subject;
 	char line[30];
 	FILE *fp = fopen("teachers_data.csv","r+");
 	while(choice > 0 && choice < 5)
@@ -48,10 +53,11 @@ int main()
 		{
    			case 1 : while(fgets(line,sizeof(line),fp)!=NULL)
 								 {
-									  char *subject;
+										int *i;
 									 	name=strtok(line,",");
 										subject=strtok(NULL,",");
-										insert_beginning(list,name);
+										i = strtok(NULL,"\n");
+										insert_beginning(list,name,subject,i);
 								 }
 								 break;
 				case 2 : printf("Enter the name of the teacher to be removed from the list\n");
@@ -60,7 +66,10 @@ int main()
 				         break;
 				case 3 : disp_list(list);
 				     		 break;
+
 				case 4 : delete_list(list);
+								 break;
+				case 5 : timeTableGenerator(list);
 								 break;
 		}
 	}
@@ -73,12 +82,14 @@ List* create_list()
     list->no_of_teachers=0;
     return list;
 }
-void insert_beginning(List* list,char  teacher_name[])
+void insert_beginning(List* list,char teacher_name[],char subject[],int hours)
 {
     Node* p=(Node*)malloc(sizeof(Node));
-		int i = 0;
-    for(i=0;i<=strlen(teacher_name)-1;i++)
+		p->hours=hours;
+    for(int i=0;i<=strlen(teacher_name)-1;i++)
 			p->teacher_name[i]=teacher_name[i];
+		for(int k =0;i<=strlen(subject)-1;k++)
+			p->subject[k]=subject[k];
     p->link=list->head;
     list->head=p;
 		printf("%s\n",p->teacher_name );
@@ -131,5 +142,53 @@ List* delete_list(List* list)
         p=p->link;
         free(q);
     }
+	list->head =NULL;
 		return list;
+}
+
+void timeTableGenerator(Node *list)
+{
+	Node *day,*timeTable;
+	for(int i=0;i<=5;i++)
+	{
+		int check = 1;
+		while(check)
+		{
+			int l = lengthOfLinkedList(&list);
+			Node *p = list;
+			int k = floor(rand()*l);
+			while(p!=NULL)
+			{
+				p = p->link;
+			}
+			if(p->hours == 0)
+				delete_element(&list,p->teacher_name);
+				if(p==NULL && lengthOfLinkedList(&list)==5)
+				{
+					return;
+		}
+		if(p==NULL && lengthOfLinkedList(&list)==0)
+			{
+				printf("Current staff provided not sufficient.\n");
+				break;
+			}
+			if(p->hours!=0)
+			{
+				timeTable=p;
+				p->hours--;
+				timeTable=timeTable->link;
+			}
+		}
+	day = timeTable;
+	day= day->link;
+	}
+	while(day!=NULL)
+	{
+		while(timeTable!=NULL)
+		{
+			printf("%s",timeTable->subject);
+			timeTable=timeTable->link;
+		}
+		day = day->link;
+	}
 }
