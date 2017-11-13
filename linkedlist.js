@@ -101,26 +101,13 @@ LinkedList.prototype.deleteWithName =  function(name)
   }
 }
 
-list = new LinkedList();
-
-$.ajax({ url: 'teachers_data.csv', dataType: 'text', }).done(LinkedList.prototype.readData);
-LinkedList.prototype.readData = function(data)
-{
-  var allRows = data.split(/\r?\n|\r/);
-  for (var singleRow = 0; singleRow < allRows.length; singleRow++)
-  {
-  var rowCells = allRows[singleRow].split(',');
-  list.push(rowCells[0],rowCells[1],rowCells[2]);
-  }
-  alert('Data read!');
-}
 LinkedList.prototype.Generate = function()
 {
   for(var i=0;i<=5;i++)
     {
       document.write("Im pissed!");
       var current = this.head;
-      document.write(current.subject);
+      alert(current.subject);
       for(var j=0;j<=5;j++)
       {
         var l = list.lengthOfList();
@@ -181,4 +168,18 @@ LinkedList.prototype.Generate = function()
     }
   }
   */
-list.Generate();
+  var list = new LinkedList();
+
+  $.ajax({ url: 'teachers_data.csv', dataType: 'text', }).done(readData);
+  function readData(data)
+  {
+    var allRows = data.split(/\r?\n|\r/);
+    for (var singleRow = 0; singleRow < allRows.length; singleRow++)
+    {
+    var rowCells = allRows[singleRow].split(',');
+    list.push(rowCells[0],rowCells[1],rowCells[2]);
+    }
+    alert('Data retrieval is successful!');
+    list.printName();
+  }
+list.printName();
