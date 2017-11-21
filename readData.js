@@ -1,11 +1,12 @@
-$.ajax({ url: 'teachers_data.csv', dataType: 'text', }).done(successFunction);
-function successFunction(data)
+$.ajax({ url: 'final.csv', dataType: 'text', }).done(printingOnPage);
+function printingOnPage(data)
 {
    var allRows = data.split(/\r?\n|\r/);
    var table = '<table>';
+   table +="<tr><th>TEACHER NAME</th><th>SUBJECT</th><br></tr>";
    for (var singleRow = 0; singleRow < allRows.length; singleRow++)
    {
-     if (singleRow === 0)
+     if (singleRow === 0 )
      {
        table += '<thead>';
        table += '<tr>';
@@ -17,11 +18,11 @@ function successFunction(data)
      var rowCells = allRows[singleRow].split(',');
      for (var rowCellCount = 0; rowCellCount < rowCells.length; rowCellCount++)
      {
-       if (singleRow === 0)
+       if (singleRow === 0 || singleRow === 6 || singleRow ===12 || singleRow ===18 || singleRow === 24 )
        {
          table += '<th>';
          table += rowCells[rowCellCount];
-         table += '</th>';
+         table += '</th></b>';
        }
        else
        {
@@ -33,7 +34,7 @@ function successFunction(data)
      if (singleRow === 0)
      {
        table += '</tr>';
-       table += '</thead>';
+       table += '</thead></b>';
        table += '<tbody>';
      }
      else

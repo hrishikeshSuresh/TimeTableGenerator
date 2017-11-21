@@ -2,24 +2,28 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true"/>
     <title>Time Table</title>
     <style media="screen">
       table
       {
         rules:all;
         border: 2px solid black;
+        background-color: gold;
       };
     </style>
+    <!---<script src="linkedlist.js"></script>--->
     <script src="jquery-3.2.1.js"></script>
-    </head>
+    <script>
+    document.write("TIME TABLE");
+    </script>
+    <script src="readData.js"></script>
+    <script type="text/javascript">
+      document.write("& Performance Analyzer Results");
+    </script>
+    <script src="pq.js"></script>
+    <!---<script src="TimeTableGenerator.js"></script>--->
+  </head>
   <body>
     <br>
-    <script src="linkedlist.js"></script>
-    <div>
-    <!---<script src="TimeTableGenerator.js"></script>--->
-    <input id="gen" onclick="list.Generate()" type="button" value="Generate Time Table"><br>
-    <input type="button" value="Check performance classwise"><br>
-    </div>
   </body>
 </html>

@@ -1,8 +1,6 @@
-function Node(data,subject,hours)
+function Node(data)
 {
   this.data = data;
-  this.subject = subject;
-  this.hours = hours;
   this.next = null;
 }
 
@@ -12,10 +10,10 @@ function LinkedList()
   this.size = null;
 }
 
-LinkedList.prototype.push = function(data,subject,hours)
+LinkedList.prototype.push = function(data)
 {
   var current = this.head;
-  var new_node = new Node(data,subject,hours);
+  var new_node = new Node(data);
   if(!current)
   {
     this.head = new_node;
@@ -31,54 +29,14 @@ LinkedList.prototype.push = function(data,subject,hours)
   return this;
 }
 
-LinkedList.prototype.lengthOfList = function()
-{
-  var current = this.head;
-  var l = 0;
-  while(current.next!=null)
-  {
-    l = l + 1;
-    current = current.next;
-  }
-  return l;
-}
-
-LinkedList.prototype.printName = function()
+LinkedList.prototype.print = function()
 {
   //document.write=Array.toString(list.toArray());
   var current = this.head;
   document.write("<ul>")
-  while(current.next!=null)
+  while(current!=null)
   {
     document.write("<li>",current.data);
-    document.write("</li>");
-    current = current.next;
-  }
-  document.write("</ul>");
-}
-
-LinkedList.prototype.printSubject = function()
-{
-  //document.write=Array.toString(list.toArray());
-  var current = this.head;
-  document.write("<ul>")
-  while(current.next!=null)
-  {
-    document.write("<li>",current.subject);
-    document.write("</li>");
-    current = current.next;
-  }
-  document.write("</ul>");
-}
-
-LinkedList.prototype.printHours = function()
-{
-  //document.write=Array.toString(list.toArray());
-  var current = this.head;
-  document.write("<ul>")
-  while(current.next!=null)
-  {
-    document.write("<li>",current.hours);
     document.write("</li>");
     current = current.next;
   }
@@ -101,83 +59,32 @@ LinkedList.prototype.deleteWithName =  function(name)
   }
 }
 
-LinkedList.prototype.Generate = function()
-{
-  for(var i=0;i<=5;i++)
-    {
-      document.write("Im pissed!");
-      var current = this.head;
-      alert(current.subject);
-      for(var j=0;j<=5;j++)
-      {
-        var l = list.lengthOfList();
-        var r = Math.floor(Math.random()*(l-1));
-        var k = 0;
-        while(k!=r && current.next!=null)
-        {
-          current = current.next;
-          document.write(current.data);
-          k = k + 1;
-        }
-        if(current.hours == 0)
-        {
-          list.deleteWithName(current.data);
-          current = this.head;
-        }
-        if(l==0)
-          alert("Insufficient staff .... Need more staff members.")
-        else
-        {
-          current.hours = current.hours - 1;
-          current = this.head;
-        }
-    }
-  }
-}
-/*LinkedList.prototype.timeTableGen= function ()
-{
-  document.write("Im pissed!");
-  for(var i=0;i<=5;i++)
-  {
-    var current = this.head;
-    document.write(current.hours);
-    for(var j=0;j<=5;j++)
-    {
-      var l = list.lengthOfList();
-      var r = Math.floor(Math.random()*(l-1));
-      var k = 0;
-      while(k!=r && current.next!=null)
-      {
-        current = current.next;
-        document.write(current.data_name);
-        k++;
-      }
-      if(current.hours == 0)
-      {
-        list.deleteWithName(current.data_name);
-        current = self.head;
-      }
-      if(l==0)
-        alert("Insufficient staff .... Need more staff members.")
-      else
-      {
-      //fh.WriteLine(current.subject+'/'+ current.data_name + ',');
-      current.hours = current.hours - 1;
-      current = this.head;
-      }
-    }
-  }
-  */
-  var list = new LinkedList();
+var list = new LinkedList();
+document.write("Insert working!")
+list.push("Senor Pink");
+list.push("Monkey D. Luffy");
+list.push("Silvers Raleigh");
+list.push("Eustass Kidd");
+list.push("Jimbei");
+list.print();
+document.write("Delete works!")
+list.deleteWithName("Silvers Raleigh");
+list.print();
+/*import System.IO;
 
-  $.ajax({ url: 'teachers_data.csv', dataType: 'text', }).done(readData);
-  function readData(data)
+$.ajax({ url: 'teachers_data.csv', dataType: 'text', }).done(timeTableGenerator);
+function timeTableGenerator(data)
+{
+  var file = "teachers_data_timetable.csv"
+  var allRows = data.split(/\r?\n|\r/);
+  for (var singleRow = 0; singleRow < allRows.length; singleRow++)
   {
-    var allRows = data.split(/\r?\n|\r/);
-    for (var singleRow = 0; singleRow < allRows.length; singleRow++)
-    {
     var rowCells = allRows[singleRow].split(',');
-    list.push(rowCells[0],rowCells[1],rowCells[2]);
+    for ( var rowCellCount = 0;rowCellCount < rowCells.length; rowCells++)
+    {
+      list.push(rowCells);
+      list.print();
+      document.write = rowCells[rowCellCount];
     }
-    alert('Data retrieval is successful!');
   }
+}*/

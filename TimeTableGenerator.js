@@ -1,40 +1,15 @@
-/*LinkedList.prototype.timeTableGen= function ()
+$.ajax({ url: 'teachers_data.csv', dataType: 'text', }).done(timeTableGenerator);
+function timeTableGenerator(data)
 {
-  document.write("Im pissed!");
-  var curr = this.head;
-  document.write(curr.data_name);
-  for(var i=0;i<=5;i++)
+  var file = "teachers_data_timetable.csv"
+  var allRows = data.split(/\r?\n|\r/);
+  for (var singleRow = 0; singleRow < allRows.length; singleRow++)
   {
-    var current = self.head;
-    document.write(current.data_name);
-    for(var j=0;j<=5;j++)
+    var rowCells = allRows[singleRow].split(',');
+    for ( var rowCellCount = 0;rowCellCount < rowCells.length; rowCells++)
     {
-      var l = list.lengthOfList();
-      var r = Math.floor(Math.random()*l);
-      var k = 0;
-      while(k!=r && current.next!=null)
-      {
-        current = current.next;
-        document.write(current.data_name);
-        k++;
-      }
-      if(current.hours == 0)
-      {
-        list.deleteWithName(current.data_name);
-        current = self.head;
-      }
-      if(l==0)
-        alert("Insufficient staff .... Need more staff members.")
-      else
-      {
-      //fh.WriteLine(current.subject+'/'+ current.data_name + ',');
-      current.hours = current.hours - 1;
-      current = self.head;
-      }
+      list.push(rowCells[0]);
+      list.print();
     }
   }
 }
-list.readData();
-list.printName();
-list.timeTableGen();
-*/
